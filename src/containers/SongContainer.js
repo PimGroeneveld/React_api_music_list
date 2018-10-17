@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SongDetail from '../components/SongDetail';
+import SongList from '../components/SongList';
 
 class SongContainer extends Component {
   constructor(props){
@@ -11,9 +11,9 @@ class SongContainer extends Component {
 
   componentDidMount(){
     const url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json"
-    fetch(url).then((res) => res.json())
+    fetch(url).then((res) => res.json()) //turns String into Json
     .then((songs) => {
-      this.setState({songs: songs});
+      this.setState({songs: songs.feed.entry});
     })
   }
 
@@ -21,8 +21,8 @@ class SongContainer extends Component {
     console.log("songs passed down", this.state.songs);
     return (
       <div>
-        <h2>List of songs that I guess people like nowadays</h2>
-        <SongDetail songs = {this.state.songs}/>
+        <h2>Music Chart top 20</h2>
+        <SongList songs = {this.state.songs} />
       </div>
     );
   }
